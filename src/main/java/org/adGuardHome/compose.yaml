@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguardhome
+    restart: always
+    volumes:
+      - '/d/docker/adguard/work:/opt/adguardhome/work'
+      - '/d/docker/adguard/conf:/opt/adguardhome/conf'
+    ports:
+      - '53:53'
+      - '80:80'
+      - '443:443'
+      - '3000:3000'
