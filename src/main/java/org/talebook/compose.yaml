@@ -1,0 +1,15 @@
+services:
+  douban-rs-api:
+    image: ghcr.io/cxfksword/douban-api-rs
+    restart: always
+  # main service
+  talebook:
+    depends_on:
+      - douban-rs-api
+    image: talebook/talebook
+    ports:
+      - "8080:80"
+      - "8443:443"
+    restart: always
+    volumes:
+      - "/d/docker/talebook:/data"

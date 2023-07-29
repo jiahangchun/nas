@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+    alist:
+       image: xhofe/alist-aria2:latest
+       container_name: alist
+       restart: always
+       volumes:
+         - /d/docker/alist:/opt/alist/data
+       ports:
+         - 5244:5244
+         - 5245:5245
+       environment:
+         - PUID=0
+         - PGID=0
+         - UMASK=022
+         - TZ=UTC
+    alist-encrypt:
+       ports:
+         - 5344:5344
+       volumes:
+         - /d/docker/alist/conf:/node-proxy/conf
+       container_name:
+         alist-encrypt
+       image:
+         prophet310/alist-encrypt:beta
+       restart:
+         always
