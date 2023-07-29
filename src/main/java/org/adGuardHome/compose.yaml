@@ -5,8 +5,8 @@ services:
     container_name: adguardhome
     restart: always
     volumes:
-      - '/d/docker/adguard/work:/opt/adguardhome/work'
-      - '/d/docker/adguard/conf:/opt/adguardhome/conf'
+      - '/e/docker/adguard/work:/opt/adguardhome/work'
+      - '/e/docker/adguard/conf:/opt/adguardhome/conf'
     ports:
       - '53:53'
       - '80:80'

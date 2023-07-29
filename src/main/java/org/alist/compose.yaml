@@ -5,7 +5,7 @@ services:
        container_name: alist
        restart: always
        volumes:
-         - /d/docker/alist:/opt/alist/data
+         - /e/docker/alist:/opt/alist/data
        ports:
          - 5244:5244
          - 5245:5245
@@ -18,7 +18,7 @@ services:
        ports:
          - 5344:5344
        volumes:
-         - /d/docker/alist/conf:/node-proxy/conf
+         - /e/docker/alist/conf:/node-proxy/conf
        container_name:
          alist-encrypt
        image:

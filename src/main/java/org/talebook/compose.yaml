@@ -12,4 +12,4 @@ services:
       - "8443:443"
     restart: always
     volumes:
-      - "/d/docker/talebook:/data"
+      - "/e/docker/talebook:/data"

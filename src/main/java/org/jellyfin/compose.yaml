@@ -9,6 +9,6 @@ services:
     ports:
       - 9004:8096
     volumes:
-      - /d/docker/config:/config
-      - /d/docker/nas:/nas
+      - /e/docker/config:/config
+      - /e/docker/nas:/nas
     privileged: true
