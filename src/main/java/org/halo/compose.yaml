@@ -25,7 +25,7 @@ services:
       - --spring.r2dbc.password=123456
       - --spring.sql.init.platform=mysql
       # 外部访问地址，我的服务器 ip 为8.130.97.145，此处需要修改为你自己的服务器或虚拟机 ip
-      - --halo.external-url=http://192.168.90.54:80/
+      - --halo.external-url=http://127.0.0.1:82/
       # 初始化的超级管理员用户名
       - --halo.security.initializer.superadminusername=admin
       # 初始化的超级管理员密码
