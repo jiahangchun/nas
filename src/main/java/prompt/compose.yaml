@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  prompt-generator:
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    ports:
+      - '7860:7860'
+    restart: always
+    build:
+        context: ./docker                  # 指定dockerfile文件的所在路径
+        dockerfile: Dockerfile.cpu    # 指定Dockerfile文件名称
+    image: 'soulteary/prompt-generator:cpu'  #自定义镜像名和版本号
+
+#执行步骤
+#docker-compose -f src/main/java/prompt/compose.yaml up -d

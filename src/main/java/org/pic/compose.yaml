@@ -32,7 +32,7 @@ services:
       - /e/docker/chevereto/chevereto_images:/var/www/html/images:rw
       - ./upload.ini:/usr/local/etc/php/conf.d/upload.ini:ro
     ports:
-      - 8880:80
+      - 1314:80
 
 networks:
   projectBridge:
