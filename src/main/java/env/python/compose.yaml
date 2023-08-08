@@ -1,0 +1,16 @@
+version: '3'
+services:
+  python3:
+    restart: always
+    build:
+      context: .         # 指定dockerfile文件的所在路径
+      dockerfile: Dockerfile    # 指定Dockerfile文件名称
+    container_name: 'python3'
+    working_dir: '/workspace/'
+    tty: true
+    volumes:
+      - ./workspace:/workspace
+
+
+
+#  docker-compose -f src/main/java/env/python/compose.yaml up -d
