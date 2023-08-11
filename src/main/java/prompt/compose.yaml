@@ -9,8 +9,11 @@ services:
     restart: always
     build:
         context: ./docker                  # 指定dockerfile文件的所在路径
-        dockerfile: Dockerfile.base    # 指定Dockerfile文件名称
-    # image: 'soulteary/prompt-generator:base'  #自定义镜像名和版本号
+        dockerfile: Dockerfile.cpu    # 指定Dockerfile文件名称
+    image: 'soulteary/prompt-generator:cpu'  #自定义镜像名和版本号
+# 这个docker-compose 方案不行
+
 
 #执行步骤
 #docker-compose -f src/main/java/prompt/compose.yaml up -d
+#https://zhuanlan.zhihu.com/p/619702740
