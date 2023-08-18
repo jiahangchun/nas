@@ -9,7 +9,8 @@ services:
     working_dir: '/workspace/'
     tty: true
     volumes:
-      - ./workspace:/workspace
+      - /f:/workspace
+      # - ./workspace:/workspace
 
 
 

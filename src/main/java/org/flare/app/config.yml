@@ -1,0 +1,19 @@
+Title: flare
+Footer: 由贾杭春❤️ 强力驱动
+OpenAppNewTab: true
+OpenBookmarkNewTab: true
+ShowTitle: true
+Greetings: 你好
+ShowSearchComponent: true
+DisabledSearchAutoFocus: false
+ShowDateTime: true
+ShowApps: true
+ShowBookmarks: true
+HideSettingButton: false
+HideHelpButton: false
+Theme: blackboard
+ShowWeather: true
+Location: 浙江省杭州市
+EnableEncryptedLink: false
+IconMode: DEFAULT
+KeepLetterCase: false

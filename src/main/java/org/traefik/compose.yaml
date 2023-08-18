@@ -1,0 +1,80 @@
+version: "3"
+services:
+  traefik:
+    image: traefik:v3.0.0-beta3
+    restart: always
+    ports:
+      - 80:80
+      # webui:默认需要关闭
+      # - 8080:8080
+      - 443:443
+    command:
+      # 开启api
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--ping=true"
+      - "--entrypoints.http.address=:80"
+      - "--entrypoints.https.address=:443"
+      #表示traefik使用docker接口找服务
+      - "--providers.docker=true"
+      # windows 和 liunx 相同配置 https://stackoverflow.com/questions/56065185/how-var-run-docker-sock-works-for-windows-docker
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+
+      # 监控 prometheus
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.addEntryPointsLabels=true"
+      - "--metrics.prometheus.addrouterslabels=true"
+      - "--metrics.prometheus.addServicesLabels=true"
+      - "--entryPoints.metrics.address=:8082"
+      - "--metrics.prometheus.entryPoint=metrics"
+      - "--metrics.prometheus.manualrouting=true"
+      # 日志
+      - "--accesslog=true"
+      - "--accesslog.format=json" # text
+      - "--log.filePath=./traefik.log" #可以创建数据卷把这个路径给挂载出去
+      - "--log.level=DEBUG" # DEBUG, PANIC, FATAL, ERROR, WARN, INFO
+      - "--accesslog.fields.defaultmode=keep"
+      - "--accesslog.fields.names.ClientUsername=drop"
+      - "--accesslog.fields.headers.defaultmode=keep"
+      - "--accesslog.fields.headers.names.User-Agent=redact"
+      - "--accesslog.fields.headers.names.Authorization=drop"
+      - "--accesslog.fields.headers.names.Content-Type=keep"
+      # 调用链追踪
+      - "--tracing=true"
+      - "--tracing.serviceName=traefik"
+      - "--tracing.spanNameLimit=150"
+      - "--tracing.elastic=true"
+      - "--tracing.elastic.serverurl=\"http://apm:8200\""
+      - "--tracing.elastic.secrettoken=\"mytoken\""
+      - "--tracing.elastic.serviceenvironment=\"production\""
+    labels:
+      # 定义域名
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`127.0.0.1`)"
+      - "traefik.http.routers.traefik-dashboard.service=dashboard@internal"
+      # 内部规则匹配转移到具体的内部service中
+      - "traefik.http.routers.traefik-dashboard-api.rule=Host(`127.0.0.1`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.traefik-dashboard-api.service=api@internal"
+      # 开启页面gzip编码，进行加速
+      # 开启插件
+      - "traefik.http.middlewares.gzip.compress=true"
+      - "traefik.http.routers.traefik-dashboard.middlewares=gzip@docker"
+      # - "traefik.http.routers.traefik-dashboard.middlewares=https-redirect@file"
+      - "traefik.http.routers.traefik-dashboard-api.middlewares=gzip@docker"
+      # 开启https服务，需要搭载https，需要申请。操作指南 https://zhuanlan.zhihu.com/p/644199649
+      #- "traefik.http.routers.traefik-dashboard.entrypoints=https"
+      #- "traefik.http.routers.traefik-dashboard.tls=true"
+      #- "traefik.http.routers.traefik-dashboard-api.entrypoints=https"
+      #- "traefik.http.routers.traefik-dashboard-api.tls=true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --proxy off localhost:8080/ping || exit 1"]
+      interval: 3s
+      retries: 10
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
