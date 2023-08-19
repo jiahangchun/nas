@@ -42,8 +42,8 @@ services:
       - "traefik.http.routers.flare.entrypoints=http"
       - "traefik.http.services.flare.loadbalancer.server.scheme=http"
       - "traefik.http.services.flare.loadbalancer.server.port=5005"
-      # assets是图片信息，flare是将请求转发到容器前去掉flare前缀实现的
-      - "traefik.http.routers.flare.rule=PathPrefix(`/flare`)||PathPrefix(`/assets`)" 
+      # assets是图片信息，flare是将请求转发到容器前去掉flare前缀实现的 ||PathPrefix(`/assets`)
+      - "traefik.http.routers.flare.rule=PathPrefix(`/flare`) ||PathPrefix(`/assets`) " 
       # 去掉前缀
       - "traefik.http.routers.flare.middlewares=flare"
       - "traefik.http.middlewares.flare.stripprefix.prefixes=/flare"

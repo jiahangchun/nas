@@ -19,6 +19,7 @@ docker network create traefik -d bridge
 ## middleware
 [middleware 官方](https://doc.traefik.io/traefik/middlewares/http/stripprefix/)\
 [重点！去掉前缀，同时进行声明](https://www.reddit.com/r/Traefik/comments/lss1ie/cannot_make_stripprefix_work_help/?rdt=34866)
+[针对项目素材](https://github.com/nicolargo/glances/issues/1365)
 
 ## 监控
 [监控等运维手段](https://www.cnblogs.com/hahaha111122222/p/15752568.html)\
