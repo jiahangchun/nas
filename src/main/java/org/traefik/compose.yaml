@@ -59,7 +59,6 @@ services:
       # 开启插件
       - "traefik.http.middlewares.gzip.compress=true"
       - "traefik.http.routers.traefik-dashboard.middlewares=gzip@docker"
-      # - "traefik.http.routers.traefik-dashboard.middlewares=https-redirect@file"
       - "traefik.http.routers.traefik-dashboard-api.middlewares=gzip@docker"
       # 开启https服务，需要搭载https，需要申请。操作指南 https://zhuanlan.zhihu.com/p/644199649
       #- "traefik.http.routers.traefik-dashboard.entrypoints=https"
