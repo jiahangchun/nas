@@ -4,9 +4,9 @@ categories:
 - id: cate-id-1
   title: 链接分类2
 - id: cate-id-2
-  title: 链接分类3
+  title: 自建网址
 - id: cate-id-3
-  title: 开发
+  title: 开发工具
 links:
 - name: 示例链接
   link: https://link.example.com
@@ -14,21 +14,12 @@ links:
   category: cate-id-0
 - name: 示例链接
   link: https://link.example.com
-  icon: sofaOutline
-  category: cate-id-1
+  icon: flask
+  category: cate-id-0
 - name: 示例链接
   link: https://link.example.com
-  icon: foodCroissant
-  category: cate-id-2
-
-- name: 示例链接
-  link: https://link.example.com
-  icon: BowArrow
-  category: cate-id-1
-- name: 示例链接
-  link: https://link.example.com
-  icon: KeyboardOutline
-  category: cate-id-2
+  icon: alphaACircleOutline
+  category: cate-id-0
 - name: 示例链接
   link: https://link.example.com
   icon: Incognito
@@ -39,43 +30,43 @@ links:
   category: cate-id-0
 - name: 示例链接
   link: https://link.example.com
-  icon: messageCog
+  icon: sofaOutline
   category: cate-id-1
 - name: 示例链接
   link: https://link.example.com
-  icon: alphaFCircleOutline
-  category: cate-id-2
+  icon: BowArrow
+  category: cate-id-1
 - name: 示例链接
   link: https://link.example.com
-  icon: alphaLCircleOutline
-  category: cate-id-3
-- name: 示例链接
-  link: https://link.example.com
-  icon: alphaACircleOutline
-  category: cate-id-0
+  icon: messageCog
+  category: cate-id-1
 - name: 示例链接
   link: https://link.example.com
   icon: alphaRCircleOutline
   category: cate-id-1
 - name: 示例链接
   link: https://link.example.com
+  icon: cityVariantOutline
+  category: cate-id-1
+- name: 网关
+  link: http://dashboard.jiahangchun.icu:9001/#/
+  icon: foodCroissant
+  category: cate-id-2
+- name: 导航网站
+  link: http://dashboard.jiahangchun.icu:9001/flare
+  icon: alphaYCircleOutline
+  category: cate-id-2
+- name: whoami测试地址
+  link: http://dashboard.jiahangchun.icu:9001/whoami
   icon: alphaECircleOutline
   category: cate-id-2
 - name: 示例链接
   link: https://link.example.com
-  icon: accountSupervisorCircle
-  category: cate-id-3
+  icon: KeyboardOutline
+  category: cate-id-2
 - name: 示例链接
   link: https://link.example.com
-  icon: flask
-  category: cate-id-0
-- name: 示例链接
-  link: https://link.example.com
-  icon: cityVariantOutline
-  category: cate-id-1
-- name: 示例链接
-  link: https://link.example.com
-  icon: alphaYCircleOutline
+  icon: alphaFCircleOutline
   category: cate-id-2
 - name: python-web
   link: https://www.djangoproject.com/start/
@@ -88,4 +79,12 @@ links:
 - name: Spring
   link: https://spring.io/
   icon: eraser
+  category: cate-id-3
+- name: 示例链接
+  link: https://link.example.com
+  icon: accountSupervisorCircle
+  category: cate-id-3
+- name: 示例链接
+  link: https://link.example.com
+  icon: alphaLCircleOutline
   category: cate-id-3
