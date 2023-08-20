@@ -37,14 +37,7 @@ services:
     volumes:
       - ./data/flare:/app
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      - "traefik.http.routers.flare.entrypoints=http"
-      - "traefik.http.services.flare.loadbalancer.server.scheme=http"
-      - "traefik.http.services.flare.loadbalancer.server.port=5005"
-      - "traefik.http.routers.flare.rule=PathPrefix(`/flare`) ||PathPrefix(`/assets`) " 
-      - "traefik.http.routers.flare.middlewares=flare"
-      - "traefik.http.middlewares.flare.stripprefix.prefixes=/flare"
+      - "traefik.http.routers.flare.rule=Host(`flare.jiahangchun.icu`)"
     networks:
       - traefik
     depends_on:
