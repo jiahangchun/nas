@@ -64,8 +64,8 @@ links:
   link: http://127.0.0.1:9876/
   icon: KeyboardOutline
   category: cate-id-2
-- name: 示例链接
-  link: https://link.example.com
+- name: 知识库
+  link: http://bookstack.jiahangchun.icu:9001/
   icon: alphaFCircleOutline
   category: cate-id-2
 - name: python-web
