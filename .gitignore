@@ -45,4 +45,4 @@ src/main/java/env/ddns/data/.ddns_go_config.yaml
 src/main/java/env/dns/dns_data/.initialized
 src/main/java/env/dns/dns_data/
 src/main/java/total/data/ddns/.ddns_go_config.yaml
-src/main/java/total/data
+!src/main/java/total/data/flare
