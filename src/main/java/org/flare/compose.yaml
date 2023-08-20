@@ -7,12 +7,8 @@ services:
     ports:
       - "82:80"
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      - "traefik.http.routers.whoami.rule=PathPrefix(`/whoami`)"
-      # 去掉前缀
-      - "traefik.http.routers.whoami.middlewares=whoami"
-      - "traefik.http.middlewares.whoami.stripprefix.prefixes=/whoami"
+      # 直接转发域名
+      - "traefik.http.routers.whoami.rule=Host(`whoami.jiahangchun.icu`)"
     networks:
       - traefik
 
