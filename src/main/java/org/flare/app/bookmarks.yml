@@ -60,8 +60,8 @@ links:
   link: http://dashboard.jiahangchun.icu:9001/whoami
   icon: alphaECircleOutline
   category: cate-id-2
-- name: 示例链接
-  link: https://link.example.com
+- name: ddns-禁止外网访问
+  link: http://127.0.0.1:9876/
   icon: KeyboardOutline
   category: cate-id-2
 - name: 示例链接

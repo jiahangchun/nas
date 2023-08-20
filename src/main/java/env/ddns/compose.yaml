@@ -8,3 +8,6 @@ services:
     #network_mode: "host"
     volumes:
       - ./data:/root
+    labels:
+      - "traefik.http.routers.ddns.rule=Host(`ddns.jiahangchun.icu`)"
+      - "traefik.http.services.ddns.loadbalancer.server.port=9876"

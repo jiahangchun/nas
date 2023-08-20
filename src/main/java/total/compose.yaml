@@ -1,0 +1,116 @@
+version: "3.9"
+services:
+  ## 反向解析服务
+  ddns:
+    container_name: ddns
+    image: jeessy/ddns-go
+    ports: 
+      - 9876:9876
+    restart: always
+    volumes:
+      - ./data/ddns:/root
+    labels:
+      - "traefik.http.routers.ddns.rule=Host(`ddns.jiahangchun.icu`)"
+
+  # 测试服务
+  whoami:
+    container_name: whoami
+    image: containous/whoami
+    ports:
+      - "82:80"
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.jiahangchun.icu`)"
+    networks:
+      - traefik
+    depends_on:
+      traefik:
+        condition: service_healthy
+
+  # 导航服务
+  flare:
+    container_name: flare
+    image: soulteary/flare
+    restart: always
+    command: flare
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./data/flare:/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.flare.entrypoints=http"
+      - "traefik.http.services.flare.loadbalancer.server.scheme=http"
+      - "traefik.http.services.flare.loadbalancer.server.port=5005"
+      - "traefik.http.routers.flare.rule=PathPrefix(`/flare`) ||PathPrefix(`/assets`) " 
+      - "traefik.http.routers.flare.middlewares=flare"
+      - "traefik.http.middlewares.flare.stripprefix.prefixes=/flare"
+    networks:
+      - traefik
+    depends_on:
+      traefik:
+        condition: service_healthy
+
+  # 网关服务
+  traefik:
+    container_name: traefik
+    image: traefik:v3.0.0-beta3
+    restart: always
+    ports:
+      - 9001:9001
+      - 1443:1443
+    command:
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--ping=true"
+      - "--entrypoints.http.address=:9001"
+      - "--entrypoints.https.address=:1443"
+      - "--providers.docker=true"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.addEntryPointsLabels=true"
+      - "--metrics.prometheus.addrouterslabels=true"
+      - "--metrics.prometheus.addServicesLabels=true"
+      - "--entryPoints.metrics.address=:8082"
+      - "--metrics.prometheus.entryPoint=metrics"
+      - "--metrics.prometheus.manualrouting=true"
+      - "--accesslog=true"
+      - "--accesslog.format=json"
+      - "--log.filePath=./traefik.log"
+      - "--log.level=DEBUG"
+      - "--accesslog.fields.defaultmode=keep"
+      - "--accesslog.fields.names.ClientUsername=drop"
+      - "--accesslog.fields.headers.defaultmode=keep"
+      - "--accesslog.fields.headers.names.User-Agent=redact"
+      - "--accesslog.fields.headers.names.Authorization=drop"
+      - "--accesslog.fields.headers.names.Content-Type=keep"
+      - "--tracing=true"
+      - "--tracing.serviceName=traefik"
+      - "--tracing.spanNameLimit=150"
+      - "--tracing.elastic=true"
+      - "--tracing.elastic.serverurl=\"http://apm:8200\""
+      - "--tracing.elastic.secrettoken=\"mytoken\""
+      - "--tracing.elastic.serviceenvironment=\"production\""
+    labels:
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`dashboard.jiahangchun.icu`)"
+      - "traefik.http.routers.traefik-dashboard.service=dashboard@internal"
+      - "traefik.http.routers.traefik-dashboard-api.rule=Host(`dashboard.jiahangchun.icu`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.traefik-dashboard-api.service=api@internal"
+      - "traefik.http.middlewares.gzip.compress=true"
+      - "traefik.http.routers.traefik-dashboard.middlewares=gzip@docker"
+      - "traefik.http.routers.traefik-dashboard-api.middlewares=gzip@docker"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider --proxy off localhost:8080/ping || exit 1"]
+      interval: 3s
+      retries: 10
+    networks:
+      - traefik
+    depends_on:
+      - ddns
+
+networks:
+  traefik:
+    external: true
