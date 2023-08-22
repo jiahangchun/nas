@@ -1,0 +1,14 @@
+version: '3'
+services:
+  python3:
+    restart: always
+    build:
+      # 指定dockerfile文件的所在路径
+      context: .
+      # 指定Dockerfile文件名称
+      dockerfile: Dockerfile
+    container_name: 'python3'
+    working_dir: '/workspace/'
+    tty: true
+    volumes:
+      - /f:/workspace
