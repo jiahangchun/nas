@@ -1,0 +1,24 @@
+global:
+  #163服务器
+  smtp_smarthost: 'smtp.163.com:25'
+  #发邮件的邮箱
+  smtp_from: 'jiahangchun@163.com'
+  #发邮件的邮箱用户名，也就是你的邮箱
+  smtp_auth_username: 'jiahangchun@163.com'
+  #发邮件的邮箱密码
+  smtp_auth_password: 'Tpssssss'
+  #不进行tls验证
+  smtp_require_tls: false　　　　　　　　
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 10m
+  receiver: live-monitoring
+
+receivers:
+  - name: 'live-monitoring'
+    email_configs:
+      #收邮件的邮箱
+      - to: 'jiahangchun@163.com'　　　　　　　　
