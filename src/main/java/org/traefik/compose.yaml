@@ -4,18 +4,18 @@ services:
     image: traefik:v3.0.0-beta3
     restart: always
     ports:
-      - 80:80
+      - 9001:9001
       # webui:默认需要关闭
       # - 8080:8080
-      - 443:443
+      - 1443:1443
     command:
       # 开启api
       - "--api=true"
       - "--api.dashboard=true"
       - "--api.insecure=true"
       - "--ping=true"
-      - "--entrypoints.http.address=:80"
-      - "--entrypoints.https.address=:443"
+      - "--entrypoints.http.address=:9001"
+      - "--entrypoints.https.address=:1443"
       #表示traefik使用docker接口找服务
       - "--providers.docker=true"
       # windows 和 liunx 相同配置 https://stackoverflow.com/questions/56065185/how-var-run-docker-sock-works-for-windows-docker
@@ -50,16 +50,15 @@ services:
       - "--tracing.elastic.serviceenvironment=\"production\""
     labels:
       # 定义域名
-      - "traefik.http.routers.traefik-dashboard.rule=Host(`127.0.0.1`)"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`dashboard.jiahangchun.icu`)"
       - "traefik.http.routers.traefik-dashboard.service=dashboard@internal"
       # 内部规则匹配转移到具体的内部service中
-      - "traefik.http.routers.traefik-dashboard-api.rule=Host(`127.0.0.1`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.traefik-dashboard-api.rule=Host(`dashboard.jiahangchun.icu`) && PathPrefix(`/api`)"
       - "traefik.http.routers.traefik-dashboard-api.service=api@internal"
       # 开启页面gzip编码，进行加速
       # 开启插件
       - "traefik.http.middlewares.gzip.compress=true"
       - "traefik.http.routers.traefik-dashboard.middlewares=gzip@docker"
-      # - "traefik.http.routers.traefik-dashboard.middlewares=https-redirect@file"
       - "traefik.http.routers.traefik-dashboard-api.middlewares=gzip@docker"
       # 开启https服务，需要搭载https，需要申请。操作指南 https://zhuanlan.zhihu.com/p/644199649
       #- "traefik.http.routers.traefik-dashboard.entrypoints=https"

@@ -1,6 +1,18 @@
 version: '3.6'
 
 services:
+ # 测试服务，探测 traefik 是否能正常转发代理
+  whoami:
+    image: containous/whoami
+    ports:
+      - "82:80"
+    labels:
+      # 直接转发域名
+      - "traefik.http.routers.whoami.rule=Host(`whoami.jiahangchun.icu`)"
+    networks:
+      - traefik
+
+# 导航服务
   flare:
     image: soulteary/flare
     restart: always
@@ -15,8 +27,8 @@ services:
       # - FLARE_USER=flare
       # 指定你自己的账号密码，如未设置 `FLARE_USER`，则会默认生成密码并展示在应用启动日志中
       # - FLARE_PASS=your_password
-    # 是否开启“使用向导”，访问 `/guide`
-    # - FLARE_GUIDE=1
+      # 是否开启“使用向导”，访问 `/guide`
+      # - FLARE_GUIDE=1
     ports:
       - "5005:5005"
     volumes:
@@ -24,21 +36,18 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.flare.rule=PathPrefix(`/flare/`)"
+      - "traefik.http.routers.flare.entrypoints=http"
+      - "traefik.http.services.flare.loadbalancer.server.scheme=http"
+      - "traefik.http.services.flare.loadbalancer.server.port=5005"
+      # assets是图片信息，flare是将请求转发到容器前去掉flare前缀实现的 
+      - "traefik.http.routers.flare.rule=PathPrefix(`/flare`) ||PathPrefix(`/assets`) " 
+      # 去掉前缀
+      - "traefik.http.routers.flare.middlewares=flare"
+      - "traefik.http.middlewares.flare.stripprefix.prefixes=/flare"
     networks:
       - traefik
 
-  # 测试服务，探测 traefik 是否能正常转发代理
-  whoami:
-    image: containous/whoami
-    ports:
-      - "82:80"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      - "traefik.http.routers.whoami.rule=PathPrefix(`/ttttttt/`)"
-    networks:
-      - traefik
+ 
 
 
 networks:

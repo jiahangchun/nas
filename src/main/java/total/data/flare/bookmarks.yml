@@ -53,19 +53,19 @@ links:
   icon: foodCroissant
   category: cate-id-2
 - name: 导航网站
-  link: http://dashboard.jiahangchun.icu:9001/flare
+  link: http://flare.jiahangchun.icu:9001
   icon: alphaYCircleOutline
   category: cate-id-2
 - name: whoami测试地址
-  link: http://dashboard.jiahangchun.icu:9001/whoami
+  link: http://whoami.jiahangchun.icu:9001
   icon: alphaECircleOutline
   category: cate-id-2
 - name: ddns-禁止外网访问
   link: http://127.0.0.1:9876/
   icon: KeyboardOutline
   category: cate-id-2
-- name: 示例链接
-  link: https://link.example.com
+- name: 知识库
+  link: http://bookstack.jiahangchun.icu:9001/
   icon: alphaFCircleOutline
   category: cate-id-2
 - name: python-web

@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+      # 知识库
+  affine:
+    container_name: affine
+    ports:
+      - '3000:3000'
+    volumes:
+      - './data/affine:/app/data'
+    labels:
+      - "traefik.http.routers.affine.rule=Host(`affine.jiahangchun.icu`)"
+    restart: always
+    image: 'ghcr.io/toeverything/affine-self-hosted:latest'
+    networks:
+      - traefik
