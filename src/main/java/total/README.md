@@ -1,0 +1,1 @@
+docker-compose -f src/main/java/total/compose.yaml up -d
