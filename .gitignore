@@ -72,3 +72,6 @@ src/main/java/total/data/mariadb/log/mysql/mariadb-bin.state
 src/main/java/total/data/mariadb/log/mysql/mariadb-slow.log
 /src/main/java/env/monitor/data/
 /src/main/java/env/codercom/.config/
+/src/main/java/env/cidi/config
+/src/main/java/env/cidi/data
+/src/main/java/env/cidi/logs
