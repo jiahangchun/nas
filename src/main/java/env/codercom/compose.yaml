@@ -6,8 +6,8 @@ services:
       - '8080:8080'
     volumes:
       - './.config:/home/coder/.config'
-      - './data/codercom:/home/coder/project'
-    user: '197108:197121'
+      - './codercom:/home/coder/project'
+    user: '1000:1000'
     environment:
       - DOCKER_USER=jiahangchun
     image: 'codercom/code-server:latest'
