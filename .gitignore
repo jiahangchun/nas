@@ -56,3 +56,5 @@ src/main/java/total/data/mariadb/log
 /src/main/java/env/cidi/config
 /src/main/java/env/cidi/data
 /src/main/java/env/cidi/logs
+/src/main/java/org/archiveBox/data/logs/
+/src/main/java/org/archiveBox/data/
